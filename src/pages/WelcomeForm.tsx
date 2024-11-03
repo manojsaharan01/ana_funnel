@@ -59,7 +59,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
       </div>
 
       <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-8 mb-12 shadow-xl">
-        <h2 className="text-2xl font-bold mb-4">Get Your Free AI Audit</h2>
+        <h2 className="text-2xl font-bold mb-4 text-[#6EC6FF]">Get Your Free AI Audit</h2>
         <p className="text-gray-400 mb-6">
           Discover how AI can revolutionize your business operations. Our cutting-edge AI Value Assessment Tool analyzes your
           business needs and recommends tailored AI solutions to boost efficiency, customer satisfaction, and revenue.
@@ -108,17 +108,17 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
         <div className="text-center p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
           <MessageSquare className="h-12 w-12 mx-auto mb-4 text-purple-500" />
-          <h3 className="text-lg font-semibold mb-2">AI Chatbots</h3>
+          <h3 className="text-lg font-semibold mb-2 text-[#6EC6FF]">AI Chatbots</h3>
           <p className="text-gray-400">Enhance customer support with intelligent, 24/7 virtual assistants.</p>
         </div>
         <div className="text-center p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
           <Mic className="h-12 w-12 mx-auto mb-4 text-purple-500" />
-          <h3 className="text-lg font-semibold mb-2">Voice Agents</h3>
+          <h3 className="text-lg font-semibold mb-2 text-[#6EC6FF]">Voice Agents</h3>
           <p className="text-gray-400">Implement voice-activated solutions for seamless, hands-free interactions.</p>
         </div>
         <div className="text-center p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
           <Workflow className="h-12 w-12 mx-auto mb-4 text-purple-500" />
-          <h3 className="text-lg font-semibold mb-2">Workflow Automation</h3>
+          <h3 className="text-lg font-semibold mb-2 text-[#6EC6FF]">Workflow Automation</h3>
           <p className="text-gray-400">Streamline operations with AI-powered process optimization.</p>
         </div>
       </div>
@@ -141,7 +141,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
           {benefits.map((benefit, index) => (
             <div key={index} className="text-center p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
               <div className="text-4xl mb-4">{benefit.icon}</div>
-              <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
+              <h3 className="text-lg font-semibold mb-2 text-[#6EC6FF]">{benefit.title}</h3>
               <p className="text-gray-400">{benefit.description}</p>
             </div>
           ))}

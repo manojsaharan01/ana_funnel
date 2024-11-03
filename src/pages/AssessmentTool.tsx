@@ -283,7 +283,7 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
 
         <div className="text-center space-y-8">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 inline-block">
-            <h2 className="text-2xl font-bold mb-2">
+            <h2 className="text-2xl font-bold mb-2 text-[#6EC6FF]">
               Total Potential Annual Savings:
               <span className="ml-2 bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
                 ${calculateTotalSavings().toLocaleString()}
