@@ -51,12 +51,21 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
       title: 'Virtual Receptionist',
       icon: Bot,
       question: 'How many calls does your business receive per month?',
-      calculation: (value: number) => {
-        const missedCalls = Math.round(value * 0.25);
-        const potentialRevenue = missedCalls * 100;
+      additionalInputs: [
+        {
+          id: 'perLeadValue',
+          label: 'Average value per lead ($)',
+          type: 'number'
+        }
+      ],
+      calculation: (value: number, additionalValues?: Record<string, number>) => {
+        const perLeadValue = additionalValues?.perLeadValue || 100; // Default to $100 if not provided
+        const missedCalls = Math.round(value * 0.25); // 25% of calls are missed
+        const potentialRevenue = missedCalls * perLeadValue;
+    
         return {
           savings: potentialRevenue,
-          source: `Based on ${missedCalls.toLocaleString()} typically missed calls (25%) at $100 average value per lead`,
+          source: `Based on ${missedCalls.toLocaleString()} typically missed calls (25%) at $${perLeadValue} average value per lead`,
           citations: [
             {
               text: 'AI virtual receptionists can handle up to 100 calls simultaneously for a single phone number',
@@ -79,10 +88,17 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
       title: 'AI Appointment Setter',
       icon: Calendar,
       question: 'How many leads do you receive per month?',
-      calculation: (value: number) => {
-        const avgDealValue = 1000;
-        const currentConversionRate = 0.04;
-        const aiConversionRate = 0.21;
+      additionalInputs: [
+        {
+          id: 'avgDealValue',
+          label: 'Average deal value per lead ($)',
+          type: 'number'
+        }
+      ],
+      calculation: (value: number, additionalValues?: { avgDealValue?: number }) => {
+        const avgDealValue = additionalValues?.avgDealValue || 1000; // Default to $1000 if not provided
+        const currentConversionRate = 0.04; // 4% current conversion rate
+        const aiConversionRate = 0.21; // 21% AI conversion rate
         
         const currentRevenue = value * currentConversionRate * avgDealValue;
         const potentialRevenue = value * aiConversionRate * avgDealValue;
@@ -118,23 +134,31 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
           id: 'onboardingSalary',
           label: 'Monthly salary for onboarding staff ($)',
           type: 'number'
+        },
+        {
+          id: 'currentOnboardingHours',
+          label: 'Current onboarding time per client (hours)',
+          type: 'number'
         }
       ],
       calculation: (value: number, additionalValues?: Record<string, number>) => {
         const onboardingSalary = additionalValues?.onboardingSalary || 4000; // Default salary if not provided
         const onboardingTimeReduction = 0.90; // 90% reduction
-        const oldOnboardingTimeHours = 20; // Standard onboarding time per client
-        const newOnboardingTimeHours = oldOnboardingTimeHours * (1 - onboardingTimeReduction);
         
+        // Use the provided `currentOnboardingHours` if available, otherwise default to 20 hours
+        const oldOnboardingTimeHours = additionalValues?.currentOnboardingHours || 20;
+        
+        const newOnboardingTimeHours = oldOnboardingTimeHours * (1 - onboardingTimeReduction);
+    
         const hourlyRate = onboardingSalary / 160; // Monthly salary to hourly rate
         const currentMonthlyCost = value * oldOnboardingTimeHours * hourlyRate;
         const newMonthlyCost = value * newOnboardingTimeHours * hourlyRate;
         const monthlySavings = currentMonthlyCost - newMonthlyCost;
         const annualSavings = monthlySavings * 12;
-
+  
         return {
           savings: Math.round(annualSavings),
-          source: `Based on ${value} new clients per month, reducing onboarding time from ${oldOnboardingTimeHours} hours to ${newOnboardingTimeHours} hours per client`,
+          source: `Based on ${Math.round(value)} new clients per month, reducing onboarding time from ${Math.round(oldOnboardingTimeHours)} hours to ${Math.round(newOnboardingTimeHours)} hours per client.`,
           citations: [
             {
               text: 'Companies report reducing onboarding time from 5+ days to just 10 minutes through automation, representing a 90% reduction in processing time',
@@ -157,25 +181,32 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
       title: 'Workflow Automation',
       icon: Workflow,
       question: 'How many hours per month do you spend on manual workflows?',
-      calculation: (value: number) => {
-        const hourlyRate = 50;
+      additionalInputs: [
+        {
+          id: 'manualHourlyRate',
+          label: 'Average cost of manual hour ($)',
+          type: 'number'
+        }
+      ],
+      calculation: (value: number, additionalValues?: { manualHourlyRate?: number }) => {
+        const hourlyRate = additionalValues?.manualHourlyRate || 50; // Default to $50 if not provided
         const errorCostMultiplier = 200;
         const currentErrorRate = 0.15;
-
+    
         // Current costs
         const currentLaborCost = value * hourlyRate;
         const currentErrorCost = (value * currentErrorRate) * errorCostMultiplier;
         const totalCurrentCost = currentLaborCost + currentErrorCost;
-
+    
         // AI-automated costs (70% reduction in hours, 90% reduction in errors)
         const aiHours = value * 0.3;
         const aiLaborCost = aiHours * hourlyRate;
         const aiErrorCost = (aiHours * (currentErrorRate * 0.1)) * errorCostMultiplier;
         const totalAiCost = aiLaborCost + aiErrorCost;
-
+    
         const monthlySavings = totalCurrentCost - totalAiCost;
         const annualSavings = monthlySavings * 12;
-
+    
         return {
           savings: Math.round(annualSavings),
           source: `Based on ${value} monthly manual hours at $${hourlyRate}/hour with error reduction from 15% to 1.5%`,
