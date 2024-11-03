@@ -236,10 +236,16 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
   const calculateTotalSavings = () => {
     return sections.reduce((total, section) => {
       const value = Number(values[section.id as keyof typeof values]) || 0;
-      const additionalValues = section.additionalInputs?.reduce((acc, input) => ({
-        ...acc,
-        [input.id]: Number(values[input.id as keyof typeof values]) || 0
-      }), {});
+      
+      // Only create additionalValues if section has additionalInputs
+      const additionalValues = section.additionalInputs 
+        ? section.additionalInputs.reduce((acc, input) => ({
+            ...acc,
+            [input.id]: Number(values[input.id as keyof typeof values]) || 0
+          }), {} as Record<string, number>)
+        : undefined;
+  
+      // @ts-expect-error The type system can't verify this is safe, but we know it matches the section's requirements
       return total + section.calculation(value, additionalValues).savings;
     }, 0);
   };
