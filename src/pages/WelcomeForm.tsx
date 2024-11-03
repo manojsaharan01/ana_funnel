@@ -3,17 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { Bot, MessageSquare, Mic, Workflow } from 'lucide-react';
 
 interface LandingPageProps {
-  setUserInfo: (info: { name: string; email: string }) => void;
+  setUserInfo: (info: { name: string; email: string; phone: string }) => void;
 }
 
 export default function LandingPage({ setUserInfo }: LandingPageProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setUserInfo({ name, email });
+    setUserInfo({ name, email, phone });
     navigate('/assessment');
   };
 
@@ -84,6 +85,16 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
               required
               className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
             />
+          <div>
+            <input
+              type="tel"
+              placeholder="Enter your phone number" // New input field for phone number
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+            />
+          </div>
           </div>
           <button
             type="submit"
@@ -113,10 +124,10 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
       </div>
 
       <div className="mb-16">
-        <h2 className="text-2xl font-bold text-center mb-8">What Business Leaders Are Saying</h2>
+        <h2 className="text-2xl font-bold text-center mb-8 text-[#6EC6FF]">What Business Leaders Are Saying</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
+            <div key={index} className="p-6 bg-gradient-to-br from-purple-900 to-purple border border-gray-800 rounded-xl">
               <p className="text-gray-300 mb-4">"{testimonial.quote}"</p>
               <p className="text-sm text-purple-500">- {testimonial.author}</p>
             </div>
@@ -125,7 +136,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
       </div>
 
       <div className="mb-16">
-        <h2 className="text-2xl font-bold text-center mb-8">Unlock Your Business Potential</h2>
+        <h2 className="text-2xl font-bold text-center mb-8 text-[#6EC6FF]">Unlock Your Business Potential</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {benefits.map((benefit, index) => (
             <div key={index} className="text-center p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">

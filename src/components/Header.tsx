@@ -29,12 +29,12 @@ export default function Header() {
             </button>
             
             <a
-              href="https://aivoiceagents.ca/"
+              href="https://cal.com/ai-company-fcboct/discovery-call?duration=30&date=2024-11-04&month=2024-11"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-600 to-blue-500 text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-200"
             >
-              Visit Website
+              Book a Demo
             </a>
           </div>
         </div>
