@@ -1,155 +1,141 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Bot, Mic, LayoutGrid } from 'lucide-react';
+import { Bot, MessageSquare, Mic, Workflow } from 'lucide-react';
 
-interface WelcomeFormProps {
+interface LandingPageProps {
   setUserInfo: (info: { name: string; email: string }) => void;
 }
 
-export default function WelcomeForm({ setUserInfo }: WelcomeFormProps) {
+export default function LandingPage({ setUserInfo }: LandingPageProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('https://hook.us1.make.com/96cr4ip0smrjdq5g8db0bkgwkr3e38wm', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
-      }
-
-      setUserInfo({ name, email });
-      navigate('/assessment');
-    } catch (err) {
-      setError('Failed to submit form. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+    setUserInfo({ name, email });
+    navigate('/assessment');
   };
 
-  const features = [
+  const testimonials = [
     {
-      icon: Bot,
-      title: 'AI Chatbots',
-      description: 'Enhance customer support with intelligent, 24/7 virtual assistants.'
+      quote: "The AI audit revealed potential savings of over $50,000 per year for our business. I'm amazed!",
+      author: "Sarah Johnson, CEO"
     },
     {
-      icon: Mic,
-      title: 'Voice Agents',
-      description: 'Implement voice-activated solutions for seamless, hands-free interactions.'
+      quote: "After implementing AI solutions, our customer engagement improved by 40% and workload decreased significantly.",
+      author: "Michael Chen, Operations Director"
+    }
+  ];
+
+  const benefits = [
+    {
+      title: "Boost Revenue",
+      description: "Increase your business revenue by 15-25% in your first year with AI-powered customer engagement",
+      icon: "📈"
     },
     {
-      icon: LayoutGrid,
-      title: 'Workflow Automation',
-      description: 'Streamline operations with AI-powered process optimization.'
+      title: "Reduce Missed Opportunities",
+      description: "Cut down missed opportunities by up to 30% with AI-powered response systems",
+      icon: "📅"
+    },
+    {
+      title: "Save Time",
+      description: "Automate up to 50-60% of repetitive tasks, allowing your team to focus on growth",
+      icon: "⚡"
     }
   ];
 
   return (
-    <div className="min-h-[calc(100vh-136px)] flex flex-col items-center justify-center p-4 bg-gradient-to-b from-purple-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-4xl"
-      >
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-            AI Value Assessment Tool for Small Businesses
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
-            Unlock the future of your business with AI-powered solutions
-          </p>
-        </div>
+    <div className="max-w-4xl mx-auto px-4">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+          AI Value Assessment Tool for Small Businesses
+        </h1>
+        <p className="text-xl text-gray-400 mb-8">
+          Unlock the future of your business with AI-powered solutions
+        </p>
+      </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-12">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
-            Get Your Free AI Audit
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-6">
-            Discover how AI can revolutionize your business. Our cutting-edge AI Value Assessment Tool analyzes your
-            business needs and recommends tailored AI solutions to boost efficiency, customer satisfaction, and revenue.
-          </p>
-          
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <input
-                type="text"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                disabled={isLoading}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="Enter your name"
-                minLength={2}
-                maxLength={100}
-              />
-            </div>
-            <div className="flex gap-4">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={isLoading}
-                className="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="Enter your email address"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              />
-              <button
-                type="submit"
-                disabled={isLoading}
-                className={`px-8 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 text-white font-medium transition-all duration-200
-                  ${isLoading 
-                    ? 'opacity-50 cursor-not-allowed' 
-                    : 'hover:shadow-lg hover:scale-105'}`}
-              >
-                {isLoading ? 'Processing...' : 'Get My AI Assessment'}
-              </button>
-            </div>
-            {error && (
-              <p className="text-red-500 dark:text-red-400 text-sm mt-2">
-                {error}
-              </p>
-            )}
-          </form>
-        </div>
+      <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-8 mb-12 shadow-xl">
+        <h2 className="text-2xl font-bold mb-4">Get Your Free AI Audit</h2>
+        <p className="text-gray-400 mb-6">
+          Discover how AI can revolutionize your business operations. Our cutting-edge AI Value Assessment Tool analyzes your
+          business needs and recommends tailored AI solutions to boost efficiency, customer satisfaction, and revenue.
+        </p>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-lg"
-            >
-              <div className="flex justify-center mb-4">
-                <feature.icon className="h-8 w-8 text-purple-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                {feature.description}
-              </p>
-            </motion.div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+            />
+          </div>
+          <div>
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium transition-all duration-300"
+          >
+            Get My Free AI Audit →
+          </button>
+        </form>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="text-center p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
+          <MessageSquare className="h-12 w-12 mx-auto mb-4 text-purple-500" />
+          <h3 className="text-lg font-semibold mb-2">AI Chatbots</h3>
+          <p className="text-gray-400">Enhance customer support with intelligent, 24/7 virtual assistants.</p>
+        </div>
+        <div className="text-center p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
+          <Mic className="h-12 w-12 mx-auto mb-4 text-purple-500" />
+          <h3 className="text-lg font-semibold mb-2">Voice Agents</h3>
+          <p className="text-gray-400">Implement voice-activated solutions for seamless, hands-free interactions.</p>
+        </div>
+        <div className="text-center p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
+          <Workflow className="h-12 w-12 mx-auto mb-4 text-purple-500" />
+          <h3 className="text-lg font-semibold mb-2">Workflow Automation</h3>
+          <p className="text-gray-400">Streamline operations with AI-powered process optimization.</p>
+        </div>
+      </div>
+
+      <div className="mb-16">
+        <h2 className="text-2xl font-bold text-center mb-8">What Business Leaders Are Saying</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
+              <p className="text-gray-300 mb-4">"{testimonial.quote}"</p>
+              <p className="text-sm text-purple-500">- {testimonial.author}</p>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
+
+      <div className="mb-16">
+        <h2 className="text-2xl font-bold text-center mb-8">Unlock Your Business Potential</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {benefits.map((benefit, index) => (
+            <div key={index} className="text-center p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
+              <div className="text-4xl mb-4">{benefit.icon}</div>
+              <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
+              <p className="text-gray-400">{benefit.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -8,23 +8,23 @@ export default function Footer() {
           <div className="flex items-center space-x-2">
             <Bot className="h-6 w-6 text-purple-600" />
             <span className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-              AI Growth Creators
+              Ana
             </span>
           </div>
           
           <div className="flex space-x-8">
             <a href="mailto:contact@aigrowthcreators.com" className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
               <Mail className="h-5 w-5" />
-              <span>Contact</span>
+              <span>avoiceagents@gmail.com</span>
             </a>
             <a href="tel:+1234567890" className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
               <Phone className="h-5 w-5" />
-              <span>Support</span>
+              <span></span>
             </a>
           </div>
           
           <div className="text-sm text-gray-500 dark:text-gray-400">
-            © 2024 AI Growth Creators. All rights reserved.
+            © 2024 The Talent Warehouse AI. All rights reserved.
           </div>
         </div>
       </div>

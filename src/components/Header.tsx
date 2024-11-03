@@ -11,7 +11,7 @@ export default function Header() {
           <div className="flex items-center space-x-2">
             <Bot className="h-8 w-8 text-purple-600" />
             <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-              AI Growth Creators
+              Ana
             </span>
           </div>
           
@@ -29,7 +29,7 @@ export default function Header() {
             </button>
             
             <a
-              href="https://www.growthcreators.ai/"
+              href="https://aivoiceagents.ca/"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-600 to-blue-500 text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-200"
