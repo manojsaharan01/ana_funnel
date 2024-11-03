@@ -13,13 +13,13 @@ export default function Footer() {
           </div>
           
           <div className="flex space-x-8">
-            <a href="mailto:contact@aigrowthcreators.com" className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+            <a href="mailto:aivoiceagents@gmail.com" className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
               <Mail className="h-5 w-5" />
               <span>avoiceagents@gmail.com</span>
             </a>
             <a href="tel:+1234567890" className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
               <Phone className="h-5 w-5" />
-              <span></span>
+              <span>+1234567890</span>
             </a>
           </div>
           
