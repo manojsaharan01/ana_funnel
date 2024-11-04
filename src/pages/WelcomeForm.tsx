@@ -6,19 +6,26 @@ interface LandingPageProps {
   setUserInfo: (info: { name: string; email: string; phone: string }) => void;
 }
 
+interface Testimonial {
+  quote: string;
+  author: string;
+}
+
+interface Benefit {
+  title: string;
+  description: string;
+  icon: string;
+}
+
 export default function LandingPage({ setUserInfo }: LandingPageProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setUserInfo({ name, email, phone });
-    navigate('/assessment');
-  };
-
-  const testimonials = [
+  const testimonials: Testimonial[] = [
     {
       quote: "The AI audit revealed potential savings of over $50,000 per year for our business. I'm amazed!",
       author: "Sarah Johnson, CEO"
@@ -29,7 +36,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
     }
   ];
 
-  const benefits = [
+  const benefits: Benefit[] = [
     {
       title: "Boost Revenue",
       description: "Increase your business revenue by 15-25% in your first year with AI-powered customer engagement",
@@ -47,11 +54,42 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
     }
   ];
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    const webhookUrl = 'https://hook.us1.make.com/rx7tgruin8flm9oaxkqkh64vlc2hdfnb';
+    const data = { name, email, phone };
+
+    try {
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send data to the webhook');
+      }
+
+      setUserInfo(data);
+      navigate('/assessment');
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setError('There was an issue submitting the form. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="max-w-4xl mx-auto px-4">
+    <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-        Hesitant About AI? <br/> Discover What You’ve Been Missing.
+          Hesitant About AI? <br/> Discover What You've Been Missing.
         </h1>
         <p className="text-xl text-gray-400 mb-8">
           Unlock the future of your business with AI-powered solutions
@@ -66,42 +104,38 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <input
-              type="text"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-            />
-          </div>
-          <div>
-            <input
-              type="email"
-              placeholder="Enter your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-            />
-          <div>
-            <input
-              type="tel"
-              placeholder="Enter your phone number" // New input field for phone number
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
-              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-            />
-          </div>
-          </div>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+          />
+          <input
+            type="email"
+            placeholder="Enter your email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+          />
+          <input
+            type="tel"
+            placeholder="Enter your phone number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+            className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+          />
           <button
             type="submit"
-            className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium transition-all duration-300"
+            disabled={isLoading}
+            className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Get My Free AI Audit →
+            {isLoading ? 'Submitting...' : 'Get My Free AI Audit →'}
           </button>
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         </form>
       </div>
 
@@ -127,7 +161,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
         <h2 className="text-2xl font-bold text-center mb-8 text-[#6EC6FF]">What Business Leaders Are Saying</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="p-6 bg-gradient-to-br from-purple-900 to-purple border border-gray-800 rounded-xl">
+            <div key={index} className="p-6 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl">
               <p className="text-gray-300 mb-4">"{testimonial.quote}"</p>
               <p className="text-sm text-purple-500">- {testimonial.author}</p>
             </div>
