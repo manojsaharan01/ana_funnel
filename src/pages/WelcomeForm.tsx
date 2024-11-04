@@ -17,6 +17,11 @@ interface Benefit {
   icon: string;
 }
 
+interface WebhookResponse {
+  success: boolean;
+  error?: string;
+}
+
 export default function LandingPage({ setUserInfo }: LandingPageProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -24,6 +29,11 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const WEBHOOK_URLS = {
+    make: 'https://hook.us1.make.com/rx7tgruin8flm9oaxkqkh64vlc2hdfnb',
+    n8n: 'https://n8n.aivoiceagents.ca/webhook-test/sales-funnel-manoj-saharan'
+  };
 
   const testimonials: Testimonial[] = [
     {
@@ -54,16 +64,9 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
     }
   ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError('');
-
-    const webhookUrl = 'https://hook.us1.make.com/rx7tgruin8flm9oaxkqkh64vlc2hdfnb';
-    const data = { name, email, phone };
-
+  const sendToWebhook = async (url: string, data: object): Promise<WebhookResponse> => {
     try {
-      const response = await fetch(webhookUrl, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -72,9 +75,39 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send data to the webhook');
+        throw new Error(`Failed to send data to ${url}`);
       }
 
+      return { success: true };
+    } catch (error) {
+      console.error(`Error sending to ${url}:`, error);
+      return { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Unknown error occurred' 
+      };
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    const data = { name, email, phone };
+
+    try {
+      // Send to both webhooks in parallel
+      const [makeResult, n8nResult] = await Promise.all([
+        sendToWebhook(WEBHOOK_URLS.make, data),
+        sendToWebhook(WEBHOOK_URLS.n8n, data)
+      ]);
+
+      // Check if both webhooks were successful
+      if (!makeResult.success || !n8nResult.success) {
+        throw new Error('Failed to send data to one or more services');
+      }
+
+      // Update user info and navigate on success
       setUserInfo(data);
       navigate('/assessment');
     } catch (error) {
@@ -89,7 +122,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-          Hesitant About AI? <br/> Discover What You've Been Missing.
+          AI Value Assessment Tool for Your Business
         </h1>
         <p className="text-xl text-gray-400 mb-8">
           Unlock the future of your business with AI-powered solutions
