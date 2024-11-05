@@ -295,7 +295,7 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
             onClick={() => window.open('https://cal.com/ai-company-fcboct/discovery-call?duration=30&date=2024-11-04&month=2024-11', '_blank')}
             className="px-8 py-4 rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-200"
           >
-            Book a FREE AI Audit
+            Book a Demo Session
           </button>
         </div>
       </motion.div>
