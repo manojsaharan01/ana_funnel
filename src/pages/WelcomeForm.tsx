@@ -155,7 +155,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
           />
           <input
             type="tel"
-            placeholder="Enter your phone number"
+            placeholder="Enter your phone number (with area code, e.g +1)"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required
