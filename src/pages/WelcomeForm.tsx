@@ -139,7 +139,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            placeholder="Enter your name"
+            placeholder="Enter your full name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
