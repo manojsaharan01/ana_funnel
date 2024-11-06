@@ -28,7 +28,7 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
       icon: MessageSquare,
       question: 'What is your current annual customer service budget?',
       calculation: (value: number) => ({ 
-        savings: Math.round(value * 0.7),
+        savings: Math.round(value * 0.3),
         source: 'Industry research shows significant cost reduction with AI implementation',
         citations: [
           {
