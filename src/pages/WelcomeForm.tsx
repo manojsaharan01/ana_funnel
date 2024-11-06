@@ -130,10 +130,9 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
       </div>
 
       <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-8 mb-12 shadow-xl">
-        <h2 className="text-2xl font-bold mb-4 text-[#6EC6FF]">Get Your Free AI Audit</h2>
+        <h2 className="text-2xl font-bold mb-4 text-[#6EC6FF]">Get Access To Calculator</h2>
         <p className="text-gray-400 mb-6">
-          Discover how AI can revolutionize your business operations. Our cutting-edge AI Value Assessment Tool analyzes your
-          business needs and recommends tailored AI solutions to boost efficiency, customer satisfaction, and revenue.
+         Discover how much AI can streamline your business and boost savings—without breaking the bank.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -166,7 +165,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
             disabled={isLoading}
             className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Submitting...' : 'Get My Free AI Audit →'}
+            {isLoading ? 'Submitting...' : 'Access the Calculator →'}
           </button>
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         </form>
@@ -217,3 +216,4 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
     </div>
   );
 }
+
