@@ -122,10 +122,10 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-          AI Value Assessment Tool for Your Business
+          AI Value Calculator for Businesses
         </h1>
         <p className="text-xl text-gray-400 mb-8">
-          Unlock the future of your business with AI-powered solutions
+         Calculate how much $$ AI solutions can add to your business.
         </p>
       </div>
 

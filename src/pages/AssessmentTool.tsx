@@ -304,13 +304,13 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 w-full max-w-2xl relative">
             <button
-              onClick={() => window.open('https://cal.com/ai-company-fcboct/discovery-call?duration=30&date=2024-11-04&month=2024-11', '_blank')}
+              onClick={() => window.open('https://cal.com/manojsaharan/discovery-call', '_blank')}
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
             >
               <X className="h-6 w-6" />
             </button>
             <div className="tidycal-embed" data-path="mani/ai-audit"></div>
-            <script src="https://cal.com/ai-company-fcboct/discovery-call?duration=30&date=2024-11-04&month=2024-11" async></script>
+            <script src="https://cal.com/manojsaharan/discovery-call" async></script>
           </div>
         </div>
       )}
