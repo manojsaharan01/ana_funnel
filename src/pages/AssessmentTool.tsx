@@ -29,7 +29,7 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
       question: 'What is your current annual customer service budget?',
       calculation: (value: number) => ({ 
         savings: Math.round(value * 0.3),
-        source: 'Industry research shows significant cost reduction with AI implementation',
+        source: 'Industry research shows around 30% cost reduction with AI implementation',
         citations: [
           {
             text: 'Klarna reduced support ticket resolution time from 11 minutes to 2 minutes, generating $40 million in annual profit improvements',
@@ -292,7 +292,7 @@ export default function AssessmentTool({ userInfo }: AssessmentToolProps) {
           </div>
 
           <button
-            onClick={() => window.open('https://cal.com/ai-company-fcboct/discovery-call?duration=30&date=2024-11-04&month=2024-11', '_blank')}
+            onClick={() => window.open('https://cal.com/manojsaharan/discovery-call', '_blank')}
             className="px-8 py-4 rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-200"
           >
             Book a Demo Session
