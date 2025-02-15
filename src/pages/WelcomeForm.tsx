@@ -32,7 +32,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
 
   const WEBHOOK_URLS = {
     make: 'https://hook.us1.make.com/rx7tgruin8flm9oaxkqkh64vlc2hdfnb',
-    n8n: 'https://n8n.aivoiceagents.ca/webhook/sales-funnel-manoj-saharan'
+    n8n: 'https://n8n.aivoiceagents.ca/webhook/manoj-capture-wl-sfa'
   };
 
   const testimonials: Testimonial[] = [
