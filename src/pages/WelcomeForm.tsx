@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Bot, MessageSquare, Mic, Workflow } from 'lucide-react';
 
 interface LandingPageProps {
-  setUserInfo: (info: { name: string; email: string; phone: string }) => void;
+  setUserInfo: (info: { name: string; email: string; phone: string; message: string }) => void;
 }
 
 interface Testimonial {
@@ -26,6 +26,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
     setIsLoading(true);
     setError('');
 
-    const data = { name, email, phone };
+    const data = { name, email, phone, message };
 
     try {
       // Send to both webhooks in parallel
@@ -157,6 +158,14 @@ export default function LandingPage({ setUserInfo }: LandingPageProps) {
             placeholder="Enter your phone number (with area code, e.g +1)"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            required
+            className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+          />
+          <input
+            type="text"
+            placeholder="How can we help your business?"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             required
             className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
           />
