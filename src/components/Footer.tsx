@@ -17,9 +17,9 @@ export default function Footer() {
               <Mail className="h-5 w-5" />
               <span>avoiceagents@gmail.com</span>
             </a>
-            <a href="tel:+1234567890" className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+            <a href="tel:+1(236)9040707" className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
               <Phone className="h-5 w-5" />
-              <span>+1234567890</span>
+              <span>+1(236)9040707</span>
             </a>
           </div>
           
