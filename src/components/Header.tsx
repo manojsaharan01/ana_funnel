@@ -1,4 +1,6 @@
-import { Sun, Moon, Bot } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Sun, Moon } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 export default function Header() {
@@ -8,13 +10,19 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-purple-100 dark:border-purple-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <Bot className="h-8 w-8 text-purple-600" />
-            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
-              Ana
-            </span>
-          </div>
-          
+          {/* Logo Section */}
+          <Link href="/">
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/white-logo_talent%20(1)-Q6T36B9KOKp9cnFPFqOtDfxjWJrHZP.png"
+              alt="The Talent Warehouse"
+              width={150} 
+              height={40}
+              className="h-10 w-auto cursor-pointer"
+              priority
+            />
+          </Link>
+
+          {/* Right Side (Theme Toggle + CTA) */}
           <div className="flex items-center space-x-4">
             <button
               onClick={toggleTheme}
@@ -27,7 +35,7 @@ export default function Header() {
                 <Moon className="h-5 w-5 text-purple-600" />
               )}
             </button>
-            
+
             <a
               href="https://cal.com/manojsaharan/discovery-call"
               target="_blank"
